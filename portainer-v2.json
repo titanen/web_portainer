@@ -17,7 +17,7 @@
 			}
 		},
 		{
-			"type":4,
+			"type":3,
 			"title":"Wordpress",
 			"description":"Wordpress setup with a MariaDB database",
 			"note":"Deploys a Wordpress instance connected to a MariaDB database.",
