@@ -17,17 +17,43 @@
 			}
 		},
 		{
-			"type":3,
+			"type":2,
 			"title":"Wordpress",
 			"description":"Wordpress setup with a MariaDB database",
 			"note":"Deploys a Wordpress instance connected to a MariaDB database.",
-			"stackfile":"https://raw.githubusercontent.com/titanen/web_portainer/main/wordpress_mariadb.yml"
+			"categories":[
+				"CMS"
+			],
+			"platform":"linux",
+			"logo":"https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/wordpress.png",
+			"repository":{
+				"url":"https://github.com/portainer/templates/tree/master/",
+				"stackfile":"stacks/wordpress/docker-stack.yml"
+			},
+			"env":[
+				{
+					"name":"MYSQL_DATABASE_PASSWORD",
+					"label":"Database root password",
+					"description":"Password used by the MySQL root user."
+				}
+			]
 		},
 		{
+			"type": 1,
+			"title": "McMyAdmin 2",
+			"description": "McMyAdmin 2 is the leading web control panel and administration console for Minecraft servers.",
 			"categories": [
 				"Other"
 			],
-			"description": "McMyAdmin 2 is the leading web control panel and administration console for Minecraft servers.",
+			"platform": "linux",
+			"image": "lscr.io/linuxserver/mcmyadmin2:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mcmyadmin-icon.png",
+			"name": "mcmyadmin2",
+			"restart_policy": "unless-stopped",
+			"ports": [
+				"8080:8080/tcp",
+				"25565:25565/tcp"
+			],
 			"env": [
 				{
 					"default": "1000",
@@ -40,17 +66,6 @@
 					"name": "PGID"
 				}
 			],
-			"image": "lscr.io/linuxserver/mcmyadmin2:latest",
-			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/mcmyadmin-icon.png",
-			"name": "mcmyadmin2",
-			"platform": "linux",
-			"ports": [
-				"8080:8080/tcp",
-				"25565:25565/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "McMyAdmin 2",
-			"type": 1,
 			"volumes": [
 				{
 					"container": "/minecraft"
@@ -58,23 +73,23 @@
 			]
 		},
 		{
-			"categories": [
-				"Proxy",
-				"Tools"
-			],
+			"type": 1,
+			"title": "Nginx Proxy Manager",
+			"name": "nginx-proxy-manager",
 			"description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.",
 			"image": "jlesage/nginx-proxy-manager",
 			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/proxy_mgr.png",
-			"name": "nginx-proxy-manager",
 			"platform": "linux",
+			"restart_policy": "unless-stopped",
 			"ports": [
 				"80:8080/tcp",
 				"81:8181/tcp",
 				"443:4443/tcp"
 			],
-			"restart_policy": "unless-stopped",
-			"title": "Nginx Proxy Manager",
-			"type": 1,
+			"categories": [
+				"Proxy",
+				"Tools"
+			],
 			"volumes": [
 				{
 					"bind": "/portainer/Files/AppData/Config/Nginx-Proxy",
@@ -83,10 +98,22 @@
 			]
 		},
 		{
+			"type": 1,
+			"title": "OpenVPN Access Server",
+			"description": "OpenVPN Access Server is a full featured secure network tunneling VPN software solution that integrates OpenVPN server capabilities, enterprise management capabilities, simplified OpenVPN Connect UI, and OpenVPN Client software packages that accommodate Windows, MAC, Linux, Android, and iOS environments.",
+			"image": "lscr.io/linuxserver/openvpn-as:latest",
+			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/openvpn-as-icon.png",
+			"name": "openvpn-as",
+			"platform": "linux",
+			"restart_policy": "unless-stopped",
 			"categories": [
 				"Other"
 			],
-			"description": "OpenVPN Access Server is a full featured secure network tunneling VPN software solution that integrates OpenVPN server capabilities, enterprise management capabilities, simplified OpenVPN Connect UI, and OpenVPN Client software packages that accommodate Windows, MAC, Linux, Android, and iOS environments.",
+			"ports": [
+				"943:943/tcp",
+				"9443:9443/tcp",
+				"1194:1194/udp"
+			],
 			"env": [
 				{
 					"label": "INTERFACE",
@@ -104,18 +131,6 @@
 					"name": "PGID"
 				}
 			],
-			"image": "lscr.io/linuxserver/openvpn-as:latest",
-			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/openvpn-as-icon.png",
-			"name": "openvpn-as",
-			"platform": "linux",
-			"ports": [
-				"943:943/tcp",
-				"9443:9443/tcp",
-				"1194:1194/udp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "OpenVPN Access Server",
-			"type": 1,
 			"volumes": [
 				{
 					"bind": "/portainer/Files/AppData/Config/OpenVPN-AS",
@@ -130,6 +145,8 @@
 			"image": "pihole/pihole:latest",
 			"name": "pihole",
 			"logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/pihole.png",
+			"note": "When the installation is complete, navigate to your.ip.goes.here:1010/admin. Follow the article \u003ca href='https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f'\u003ehere\u003c/a\u003e if you run into issues binding to port 53.",
+			"platform": "linux",
 			"restart_policy": "unless-stopped",
 			"volumes": [
 				{
@@ -148,8 +165,6 @@
 				"1010:80/tcp",
 				"4443:443/tcp"
 			],
-			"note": "When the installation is complete, navigate to your.ip.goes.here:1010/admin. Follow the article \u003ca href='https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f'\u003ehere\u003c/a\u003e if you run into issues binding to port 53.",
-			"platform": "linux",
 			"categories": [
 				"Other",
 				"Tools"
