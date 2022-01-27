@@ -21,7 +21,7 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
-      MYSQL_RANDOM_ROOT_PASSWORD: default_root_password
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
     volumes:
       - db:/var/lib/mysql
 
