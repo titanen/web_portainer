@@ -27,7 +27,7 @@
 			"platform":"linux",
 			"logo":"https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/wordpress.png",
 			"repository":{
-				"url":"https://github.com/titanen/web_portainer/tree/main/",
+				"url":"https://github.com/titanen/web_portainer/",
 				"stackfile":"stacks/wordpress/docker-stack.yml"
 			},
 			"env":[
