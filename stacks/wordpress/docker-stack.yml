@@ -1,6 +1,17 @@
-version: '3.1'
+version: '3'
 
 services:
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
 
   wordpress:
     image: wordpress:latest
@@ -14,17 +25,6 @@ services:
     volumes:
       - wordpress:/var/www/html
 
-  db:
-    image: mariadb:latest
-    restart: always
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
-    volumes:
-      - db:/var/lib/mysql
-
 volumes:
-  wordpress:
-  db:
+  #wordpress:
+  db_data:
